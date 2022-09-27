@@ -38,7 +38,7 @@ class _AppNavigatorState extends State<AppNavigator>
           arguments: settings.arguments,
         );
         return MaterialPageRoute(
-          builder: route.pageBuilder,
+          builder: route.builder,
           settings: routeSettings,
         );
       },

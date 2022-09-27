@@ -15,14 +15,14 @@ class AppRoute {
   final Widget title;
 
   /// todo: docs
-  final WidgetBuilder pageBuilder;
+  final WidgetBuilder builder;
 
   AppRoute({
     this.isRoot = false,
     required this.path,
     this.icon,
     required this.title,
-    required this.pageBuilder,
+    required this.builder,
   });
 }
 

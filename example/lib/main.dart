@@ -43,13 +43,13 @@ class LayoutPage extends StatelessWidget {
           isRoot: true,
           icon: const Icon(Icons.home),
           title: const Text('Home'),
-          pageBuilder: (_) => const HomePage(),
+          builder: (_) => const HomePage(),
         ),
         AppRoute(
           path: '/profile',
           icon: const Icon(Icons.person),
           title: const Text('Profile'),
-          pageBuilder: (_) => const ProfilePage(),
+          builder: (_) => const ProfilePage(),
         ),
       ],
     );
