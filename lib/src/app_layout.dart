@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 
+import 'app_menu.dart';
 import 'app_navigator.dart';
+import 'app_route.dart';
+import 'responsive.dart';
 
 /// todo: docs
 class AppLayout extends StatelessWidget {
   /// todo: docs
   final double sideMenuWidth;
+
+  /// todo: docs
+  final BoxDecoration? sideMenuDecoration;
+
+  /// todo: docs
+  final Widget? sideMenuTitle;
+
+  /// todo: docs
+  final List<AppRoute> sideMenuRoutes;
 
   /// todo: docs
   final bool Function(String)? cleanPathOnNavigation;
@@ -31,6 +43,9 @@ class AppLayout extends StatelessWidget {
   const AppLayout({
     super.key,
     this.sideMenuWidth = 260.0,
+    this.sideMenuDecoration,
+    this.sideMenuTitle,
+    required this.sideMenuRoutes,
     this.cleanPathOnNavigation,
     this.pages = const <Page<dynamic>>[],
     this.onPopPage,
@@ -42,10 +57,34 @@ class AppLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ResponsiveWidget(
+      mobile: mobile(),
+      desktop: desktop(),
+    );
+  }
+
+  // todo: fixme
+  Widget mobile() {
+    return AppNavigator(
+      cleanPathOnNavigation: cleanPathOnNavigation ?? (_) => false,
+      pages: pages,
+      onPopPage: onPopPage,
+      initialRoute: initialRoute,
+      onGenerateInitialRoutes: onGenerateInitialRoutes,
+      onGenerateRoute: onGenerateRoute,
+      onUnknownRoute: onUnknownRoute,
+    );
+  }
+
+  Widget desktop() {
     return Row(
       children: [
-        SideMenu(
+        AppMenu(
           width: sideMenuWidth,
+          initialRoute: initialRoute,
+          decoration: sideMenuDecoration,
+          title: sideMenuTitle,
+          routes: sideMenuRoutes,
         ),
         Expanded(
           child: AppNavigator(
