@@ -1,26 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../model/app_route.dart';
 import '../model/event.dart';
 
 class AppNavigator extends StatefulWidget {
-  final bool Function(String) cleanPathOnNavigation;
-  final List<Page<dynamic>> pages;
-  final PopPageCallback? onPopPage;
-  final String? initialRoute;
-  final RouteListFactory onGenerateInitialRoutes;
-  final RouteFactory? onGenerateRoute;
-  final RouteFactory? onUnknownRoute;
+  final AppRoutes routes;
 
-  const AppNavigator({
-    super.key,
-    required this.cleanPathOnNavigation,
-    required this.pages,
-    this.onPopPage,
-    this.initialRoute,
-    required this.onGenerateInitialRoutes,
-    this.onGenerateRoute,
-    this.onUnknownRoute,
-  });
+  const AppNavigator({super.key, required this.routes});
 
   @override
   State<StatefulWidget> createState() => _AppNavigatorState();
@@ -43,12 +29,19 @@ class _AppNavigatorState extends State<AppNavigator>
   Widget build(BuildContext context) {
     return Navigator(
       key: navKey,
-      pages: widget.pages,
-      onPopPage: widget.onPopPage,
-      initialRoute: widget.initialRoute,
-      onGenerateInitialRoutes: widget.onGenerateInitialRoutes,
-      onGenerateRoute: widget.onGenerateRoute,
-      onUnknownRoute: widget.onUnknownRoute,
+      onGenerateRoute: (settings) {
+        final route = settings.name != null
+            ? widget.routes.getRouteByPath(settings.name!)
+            : widget.routes.getRootRoute();
+        final routeSettings = RouteSettings(
+          name: route.path,
+          arguments: settings.arguments,
+        );
+        return MaterialPageRoute(
+          builder: route.pageBuilder,
+          settings: routeSettings,
+        );
+      },
       observers: [this],
     );
   }
@@ -57,10 +50,10 @@ class _AppNavigatorState extends State<AppNavigator>
   void onEvent(NavigationEvent event) {
     if (mounted && !event.done) {
       final navigator = navKey.currentState ?? Navigator.of(context);
-      if (widget.cleanPathOnNavigation(event.path)) {
-        navigator.pushNamedAndRemoveUntil(event.path, (_) => false);
+      if (event.route.isRoot) {
+        navigator.pushNamedAndRemoveUntil(event.route.path, (_) => false);
       } else {
-        navigator.pushNamed(event.path);
+        navigator.pushNamed(event.route.path);
       }
     }
   }
@@ -69,8 +62,8 @@ class _AppNavigatorState extends State<AppNavigator>
   void didPush(Route route, Route? previousRoute) {
     super.didPush(route, previousRoute);
     if (route.settings.name != null) {
-      NavigationEventPublisher()
-          .add(NavigationEvent.done(route.settings.name!));
+      final appRoute = widget.routes.getRouteByPath(route.settings.name!);
+      NavigationEventPublisher().add(NavigationEvent.done(appRoute));
     }
   }
 
@@ -78,8 +71,9 @@ class _AppNavigatorState extends State<AppNavigator>
   void didPop(Route route, Route? previousRoute) {
     super.didPop(route, previousRoute);
     if (previousRoute?.settings.name != null) {
-      NavigationEventPublisher()
-          .add(NavigationEvent.done(previousRoute!.settings.name!));
+      final appRoute =
+          widget.routes.getRouteByPath(previousRoute!.settings.name!);
+      NavigationEventPublisher().add(NavigationEvent.done(appRoute));
     }
   }
 

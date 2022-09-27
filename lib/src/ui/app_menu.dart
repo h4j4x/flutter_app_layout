@@ -8,7 +8,7 @@ class AppMenu extends StatefulWidget {
   final double width;
   final BoxDecoration? decoration;
   final Widget? title;
-  final List<AppRoute> routes;
+  final AppRoutes routes;
 
   const AppMenu({
     super.key,
@@ -57,14 +57,14 @@ class _AppMenuState extends State<AppMenu>
               child: ListView.builder(
                 itemCount: widget.routes.length,
                 itemBuilder: (context, index) {
-                  final route = widget.routes[index];
+                  final route = widget.routes.getAtIndex(index)!;
                   return ListTile(
                     leading: route.icon,
                     title: expanded ? route.title : null,
-                    onTap: activePath != route.route
+                    onTap: activePath != route.path
                         ? () {
                             NavigationEventPublisher()
-                                .add(NavigationEvent.pendent(route.route));
+                                .add(NavigationEvent.pending(route));
                           }
                         : null,
                   );
@@ -91,7 +91,7 @@ class _AppMenuState extends State<AppMenu>
   @override
   void onEvent(NavigationEvent event) {
     if (event.done) {
-      activePath = event.path;
+      activePath = event.route.path;
       if (mounted) {
         setState(() {});
       }

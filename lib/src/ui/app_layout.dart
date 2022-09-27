@@ -17,85 +17,42 @@ class AppLayout extends StatelessWidget {
   final Widget? sideMenuTitle;
 
   /// todo: docs
-  final List<AppRoute> sideMenuRoutes;
+  final List<AppRoute> routes;
 
-  /// todo: docs
-  final bool Function(String)? cleanPathOnNavigation;
-
-  /// todo: redirect to Navigator pages docs
-  final List<Page<dynamic>> pages;
-
-  /// todo: redirect to Navigator onPopPage docs
-  final PopPageCallback? onPopPage;
-
-  /// todo: redirect to Navigator initialRoute docs
-  final String? initialRoute;
-
-  /// todo: redirect to Navigator onGenerateInitialRoutes docs
-  final RouteListFactory onGenerateInitialRoutes;
-
-  /// todo: redirect to Navigator onGenerateRoute docs
-  final RouteFactory? onGenerateRoute;
-
-  /// todo: redirect to Navigator onUnknownRoute docs
-  final RouteFactory? onUnknownRoute;
-
-  const AppLayout({
+  AppLayout({
     super.key,
     this.sideMenuWidth = 260.0,
     this.sideMenuDecoration,
     this.sideMenuTitle,
-    required this.sideMenuRoutes,
-    this.cleanPathOnNavigation,
-    this.pages = const <Page<dynamic>>[],
-    this.onPopPage,
-    this.initialRoute,
-    this.onGenerateInitialRoutes = Navigator.defaultGenerateInitialRoutes,
-    this.onGenerateRoute,
-    this.onUnknownRoute,
-  });
+    required this.routes,
+  }) : assert(routes.isNotEmpty);
 
   @override
   Widget build(BuildContext context) {
+    final routes = AppRoutes(this.routes);
+    final navigator = AppNavigator(routes: routes);
     return ResponsiveWidget(
-      mobile: mobile(),
-      desktop: desktop(),
+      mobile: mobile(routes, navigator),
+      desktop: desktop(routes, navigator),
     );
   }
 
-  // todo: fixme
-  Widget mobile() {
-    return AppNavigator(
-      cleanPathOnNavigation: cleanPathOnNavigation ?? (_) => false,
-      pages: pages,
-      onPopPage: onPopPage,
-      initialRoute: initialRoute,
-      onGenerateInitialRoutes: onGenerateInitialRoutes,
-      onGenerateRoute: onGenerateRoute,
-      onUnknownRoute: onUnknownRoute,
-    );
+  Widget mobile(AppRoutes routes, AppNavigator navigator) {
+    // todo: drawer with routes ????
+    return navigator;
   }
 
-  Widget desktop() {
+  Widget desktop(AppRoutes routes, AppNavigator navigator) {
     return Row(
       children: [
         AppMenu(
           width: sideMenuWidth,
-          initialRoute: initialRoute,
           decoration: sideMenuDecoration,
           title: sideMenuTitle,
-          routes: sideMenuRoutes,
+          routes: routes,
         ),
         Expanded(
-          child: AppNavigator(
-            cleanPathOnNavigation: cleanPathOnNavigation ?? (_) => false,
-            pages: pages,
-            onPopPage: onPopPage,
-            initialRoute: initialRoute,
-            onGenerateInitialRoutes: onGenerateInitialRoutes,
-            onGenerateRoute: onGenerateRoute,
-            onUnknownRoute: onUnknownRoute,
-          ),
+          child: navigator,
         ),
       ],
     );

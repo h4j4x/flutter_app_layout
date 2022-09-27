@@ -1,3 +1,5 @@
+import 'package:flutter_app_layout/flutter_app_layout.dart';
+
 abstract class EventListener<T> {
   void onEvent(T event);
 }
@@ -21,12 +23,12 @@ class EventPublisher<T> {
 }
 
 class NavigationEvent {
-  final String path;
+  final AppRoute route;
   final bool done;
 
-  NavigationEvent.done(this.path) : done = true;
+  NavigationEvent.done(this.route) : done = true;
 
-  NavigationEvent.pendent(this.path) : done = false;
+  NavigationEvent.pending(this.route) : done = false;
 }
 
 class NavigationEventPublisher extends EventPublisher<NavigationEvent> {
