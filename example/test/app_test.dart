@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('navigates from menu', (WidgetTester tester) async {
+  testWidgets('desktop size navigates from menu correctly',
+      (WidgetTester tester) async {
     await tester.pumpWidget(const ExampleApp());
 
     // todo: fixme

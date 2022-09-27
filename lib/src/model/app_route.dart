@@ -24,6 +24,16 @@ class AppRoute {
     required this.title,
     required this.builder,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AppRoute &&
+          runtimeType == other.runtimeType &&
+          path == other.path;
+
+  @override
+  int get hashCode => path.hashCode;
 }
 
 class AppRoutes {
@@ -47,7 +57,7 @@ class AppRoutes {
     );
   }
 
-  AppRoute? getAtIndex(int index) {
+  AppRoute? getRouteAtIndex(int index) {
     if (index >= 0 && index < routes.length) {
       return routes[index];
     }

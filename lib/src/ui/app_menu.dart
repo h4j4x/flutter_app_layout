@@ -57,7 +57,7 @@ class _AppMenuState extends State<AppMenu>
               child: ListView.builder(
                 itemCount: widget.routes.length,
                 itemBuilder: (context, index) {
-                  final route = widget.routes.getAtIndex(index)!;
+                  final route = widget.routes.getRouteAtIndex(index)!;
                   return ListTile(
                     leading: route.icon,
                     title: expanded ? route.title : null,
