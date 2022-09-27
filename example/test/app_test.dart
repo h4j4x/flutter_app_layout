@@ -4,8 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('navigates from menu', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const ExampleApp());
 
+    // todo: fixme
     expect(find.text('0'), findsOneWidget);
     expect(find.text('1'), findsNothing);
 
