@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'app_route.dart';
-import 'event.dart';
+import '../model/app_route.dart';
+import '../model/event.dart';
 
 class AppMenu extends StatefulWidget {
   final String? initialRoute;

@@ -1,5 +1,5 @@
 library flutter_app_layout;
 
-export 'src/app_layout.dart';
-export 'src/app_route.dart';
-export 'src/responsive.dart';
+export 'src/model/app_route.dart';
+export 'src/ui/app_layout.dart';
+export 'src/ui/responsive.dart';

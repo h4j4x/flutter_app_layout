@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'event.dart';
+import '../model/event.dart';
 
 class AppNavigator extends StatefulWidget {
   final bool Function(String) cleanPathOnNavigation;

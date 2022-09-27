@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../model/app_route.dart';
 import 'app_menu.dart';
 import 'app_navigator.dart';
-import 'app_route.dart';
 import 'responsive.dart';
 
 /// todo: docs
