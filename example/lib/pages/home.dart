@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -7,14 +9,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text(textHomeTitle),
       ),
       body: Container(
         decoration: const BoxDecoration(
           color: Colors.grey,
         ),
         child: const Center(
-          child: Text('Home'),
+          child: Text(textHomeTitle),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,

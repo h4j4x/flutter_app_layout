@@ -1,20 +1,40 @@
+import 'package:example/constants.dart';
 import 'package:example/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('desktop size navigates from menu correctly',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(const ExampleApp());
+  group('desktop size', () {
+    testWidgets('app from menu navigates to profile and back to home',
+        (WidgetTester tester) async {
+      // arrange
+      await tester.binding.setSurfaceSize(const Size(1200, 800));
+      await tester.pumpWidget(const ExampleApp());
+      await tester.pumpAndSettle();
 
-    // todo: fixme
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      // assert initially at home with menu
+      expect(find.text(textMenuTitle), findsOneWidget);
+      expect(find.text(textHomeTitle), findsWidgets);
+      final profileItem = find.text(textProfileTitle);
+      expect(profileItem, findsOneWidget);
 
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      // act: navigates to profile
+      await tester.tap(profileItem);
+      await tester.pumpAndSettle();
 
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      // assert at profile with menu
+      expect(find.text(textMenuTitle), findsOneWidget);
+      expect(find.text(textProfileTitle), findsWidgets);
+      final backItem = find.byIcon(iconBack);
+      expect(backItem, findsWidgets);
+
+      // act: navigates back
+      await tester.tap(backItem);
+      await tester.pumpAndSettle();
+
+      // assert at home with menu
+      expect(find.text(textMenuTitle), findsOneWidget);
+      expect(find.text(textHomeTitle), findsWidgets);
+    });
   });
 }

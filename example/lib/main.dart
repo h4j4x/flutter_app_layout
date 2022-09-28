@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_layout/flutter_app_layout.dart';
 
+import 'constants.dart';
 import 'pages/home.dart';
 import 'pages/profile.dart';
 import 'transition_builder.dart';
@@ -15,7 +16,7 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App Layout',
+      title: textAppTitle,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         pageTransitionsTheme: const PageTransitionsTheme(builders: {
@@ -36,19 +37,19 @@ class LayoutPage extends StatelessWidget {
       sideMenuDecoration: const BoxDecoration(
         color: Colors.blueGrey,
       ),
-      sideMenuTitle: const Text('Menu'),
+      sideMenuTitle: const Text(textMenuTitle),
       routes: <AppRoute>[
         AppRoute(
           path: '/',
           isRoot: true,
           icon: const Icon(Icons.home),
-          title: const Text('Home'),
+          title: const Text(textHomeTitle),
           builder: (_) => const HomePage(),
         ),
         AppRoute(
           path: '/profile',
           icon: const Icon(Icons.person),
-          title: const Text('Profile'),
+          title: const Text(textProfileTitle),
           builder: (_) => const ProfilePage(),
         ),
       ],
