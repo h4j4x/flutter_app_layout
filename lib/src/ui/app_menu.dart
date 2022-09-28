@@ -57,23 +57,25 @@ class _AppMenuState extends State<AppMenu>
               child: ListView.builder(
                 itemCount: widget.routes.length,
                 itemBuilder: (context, index) {
-                  final route = widget.routes.getRouteAtIndex(index)!;
-                  return ListTile(
-                    leading: route.icon,
-                    title: expanded ? route.title : null,
-                    onTap: activePath != route.path
-                        ? () {
-                            NavigationEventPublisher()
-                                .add(NavigationEvent.pending(route));
-                          }
-                        : null,
-                  );
+                  return routeItem(widget.routes.getRouteAtIndex(index)!);
                 },
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget routeItem(AppRoute route) {
+    return ListTile(
+      leading: route.icon,
+      title: expanded ? route.title : null,
+      onTap: activePath != route.path
+          ? () {
+              NavigationEventPublisher().add(NavigationEvent.pending(route));
+            }
+          : null,
     );
   }
 
