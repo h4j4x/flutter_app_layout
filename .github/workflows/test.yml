@@ -26,10 +26,6 @@ jobs:
       - name: Run package tests
         run: flutter test
 
-      - name: Get example packages
-        run: flutter pub get
-        working-directory: ./example
-
       - name: Run example tests
         run: flutter test
         working-directory: ./example
