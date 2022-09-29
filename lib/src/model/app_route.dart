@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 
-/// todo: docs
+/// Class containing information about routes on the application.
+///
+/// On desktop size the built [Widget] will render on the right side of the menu.
+///
+/// See also:
+///
+///  * [WidgetBuilder]
 class AppRoute {
-  /// todo: docs
+  /// If this route is the root of the application.
+  ///
+  /// Also known as the initial route.
+  /// In case of duplication, first defined will be used.
   final bool isRoot;
 
-  /// todo: docs
+  /// Named path for the route.
+  ///
+  /// In case of duplication, first defined will be used.
   final String path;
 
-  /// todo: docs
+  /// Optional [Widget] to use as icon for the side menu.
   final Widget? icon;
 
-  /// todo: docs
+  /// [Widget] to use as title for the side menu.
   final Widget title;
 
-  /// todo: docs
+  /// The builder to render the route content.
   final WidgetBuilder builder;
 
   AppRoute({

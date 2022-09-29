@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
-/// todo: docs
+/// A widget that render a child according to the width.
 class ResponsiveWidget extends StatelessWidget {
   static const mobileMaxWidth = 500;
   static const tabletMaxWidth = 1000;
 
-  /// todo: docs
+  /// [Widget] to render when available width is less than or equals to 500.
   final Widget mobile;
 
-  /// todo: docs
+  /// [Widget] to render when available width is less than or equals to 1000.
+  ///
+  /// Defaults to [mobile] if not present.
   final Widget? tablet;
 
-  /// todo: docs
+  /// [Widget] to render when available width is greater than 1000.
+  ///
+  /// Defaults to [mobile] if not present.
   final Widget? desktop;
 
   const ResponsiveWidget({

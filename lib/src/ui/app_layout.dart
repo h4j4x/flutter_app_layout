@@ -5,18 +5,36 @@ import 'app_menu.dart';
 import 'app_navigator.dart';
 import 'responsive.dart';
 
-/// todo: docs
+/// A widget that can encapsulates an application layout.
+///
+/// [AppLayout] is a widget that contains and handle navigation, provides a menu
+/// and handle responsiveness according to width. Does not contains any
+/// [Scaffold] widget inside.
+///
+/// See also:
+///
+///  * [AppRoute], the required children that are the content of the
+///  encapsulated application.
 class AppLayout extends StatelessWidget {
-  /// todo: docs
+  /// Width size for the side menu on desktop size.
+  ///
+  /// Defaults to 260.
   final double sideMenuWidth;
 
-  /// todo: docs
+  /// Optional [BoxDecoration] for the side menu on desktop size.
   final BoxDecoration? sideMenuDecoration;
 
-  /// todo: docs
+  /// Optional [Widget] for title of the side menu on desktop size.
   final Widget? sideMenuTitle;
 
-  /// todo: docs
+  /// List of [AppRoute] that are the content of the encapsulated application.
+  ///
+  /// If not route with [AppRoute.isRoot] is defined, the first route is assumed
+  /// as the root. If multiple root routes are defined, first in list will be
+  /// the actual root.
+  ///
+  /// Navigation to the root route handled by the side menu will
+  /// automatically clean the navigation history.
   final List<AppRoute> routes;
 
   AppLayout({
