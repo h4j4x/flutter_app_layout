@@ -5,7 +5,7 @@ import 'app_menu.dart';
 import 'app_navigator.dart';
 import 'responsive.dart';
 
-/// A widget that can encapsulates an application layout.
+/// A widget that encapsulates a responsive application layout.
 ///
 /// [AppLayout] is a widget that contains and handle navigation, provides a menu
 /// and handle responsiveness according to width. Does not contains any

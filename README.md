@@ -1,39 +1,57 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A flutter package that provides widgets to encapsulate a responsive application layout.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Encapsulates and handle navigation.
+- Handle responsiveness according to width.
+- Provides a menu (visible side menu for desktop side).
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+The package has no external dependencies or prerequisites to be used, just check out the **Usage** section to get
+started.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Import this package into your project:
 
-```dart
-const like = 'sample';
+```yaml
+flutter_app_layout:
+  git:
+    url: git://github.com/h4j4x/flutter_app_layout
 ```
 
-## Additional information
+Use `AppLayout` widget:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+import 'package:flutter_app_layout/flutter_app_layout.dart';
+
+class LayoutPage extends StatelessWidget {
+  const LayoutPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppLayout(
+      sideMenuTitle: const Text('MENU'), // optional
+      routes: <AppRoute>[
+        AppRoute( // root route
+          path: '/',
+          // isRoot is optional, defaults to first route
+          isRoot: true,
+          icon: const Icon(Icons.home),
+          title: const Text(textHomeTitle),
+          builder: (_) => const HomePage(),
+        ),
+        AppRoute( // another route
+          path: '/profile',
+          icon: const Icon(Icons.person),
+          title: const Text(textProfileTitle),
+          builder: (_) => const ProfilePage(),
+        ),
+      ],
+    );
+  }
+}
+```
+
+That's it! Longer example can be found in `/example` folder.

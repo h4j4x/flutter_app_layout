@@ -69,7 +69,11 @@ class _AppMenuState extends State<AppMenu>
 
   Widget routeItem(AppRoute route) {
     return ListTile(
-      leading: route.icon,
+      leading: route.icon ??
+          Icon(
+            Icons.navigate_next_sharp,
+            color: expanded ? Colors.transparent : null,
+          ),
       title: expanded ? route.title : null,
       onTap: activePath != route.path
           ? () {
